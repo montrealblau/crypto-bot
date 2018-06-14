@@ -1,0 +1,16 @@
+{
+  "exchange": "gate",
+  "paris": [
+    "eth"
+  ],
+  "sellFee": 0.002,
+  "buyFee": 0.002,
+  "realprofit": 1.014,
+  "delta": 0.0001,
+  "minrequired": 0.015,
+  "maxrequired": 0.05,
+  "priceAdjuster": 1.005,
+  "quantityAdjuster": 1.0004,
+  "tenDollar": 0.012,
+  "_comment": "paris ir janorada lowercase, pagaidam ir pieejamas divas mainjas - gate un binance"
+}

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ARBITRAGE</title>
+      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+      
+      <script type="text/javascript" src="scripts/jquery.js"></script>
+      <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+      <meta content="utf-8" http-equiv="encoding">
+</head>
+<body>
+
+<div id="chart_div"></div>
+<div id="chart_div2"></div>
+1520249502204
+1520339091287
+<script>
+$(document).ready(function(){
+
+//var exchange = getUrlParameter('exchange');
+var exchange = 'gdax';
+//var b = getUrlParameter('b');
+//var c = getUrlParameter('c');
+//var d = getUrlParameter('d');
+//var e = getUrlParameter('e');
+//var f = getUrlParameter('f');
+
+// var a = 'eth_usdt0.05';
+// var b = 'eth_usdt0.1';
+// var c = 'eth_usdt0.5';
+// var d = 'eth_usdt1';
+// var e = 'eth_usdt1.5';
+// var f = 'eth_usdt2';
+
+var a = 'btc_usdt0.005';
+var b = 'btc_usdt0.01';
+var c = 'btc_usdt0.05';
+var d = 'btc_usdt0.1';
+var e = 'btc_usdt0.2';
+var f = 'btc_usdt0.5';
+
+
+var file1 = "./historical/"+a+".json";
+var file2 = "./historical/"+b+".json";
+var file3 = "./historical/"+c+".json";
+var file4 = "./historical/"+d+".json";
+var file5 = "./historical/"+e+".json";
+var file6 = "./historical/"+f+".json";
+
+$.when(
+    $.getJSON(file1, function(res) {
+      file1 = res;
+    }),
+    $.getJSON(file2, function(res) {
+      file2 = res;
+    }),
+    $.getJSON(file3, function(res) {
+      file3 = res;
+    }),
+    $.getJSON(file4, function(res) {
+      file4 = res;
+    }),
+    $.getJSON(file5, function(res) {
+      file5 = res;
+    }),
+    $.getJSON(file6, function(res) {
+      file6 = res;
+    })
+).then(function() {
+    init(file1,file2,file3,file4,file5,file6);
+});
+
+var array = [];
+var array2 = [];
+
+function init(file1,file2,file3,file4,file5,file6){
+
+    for (var i = 0; i < file1.length; i++) {
+        var tmp = [];
+        try {
+        var buyData1 = file1[i].data[exchange].buy;
+        var buyData2 = file2[i].data[exchange].buy;
+        var buyData3 = file3[i].data[exchange].buy;
+        var buyData4 = file4[i].data[exchange].buy;
+        var buyData5 = file5[i].data[exchange].buy;
+        var buyData6 = file6[i].data[exchange].buy;
+
+        tmp.push(i);
+        tmp.push(buyData1);
+        tmp.push(buyData2);
+        tmp.push(buyData3);
+        tmp.push(buyData4);
+        tmp.push(buyData5);
+        tmp.push(buyData6);
+
+        array.push(tmp);
+
+
+
+        var tmp2 = [];
+
+        var sellData1 = file1[i].data[exchange].sell;
+        var sellData2 = file2[i].data[exchange].sell;
+        var sellData3 = file3[i].data[exchange].sell;
+        var sellData4 = file4[i].data[exchange].sell;
+        var sellData5 = file5[i].data[exchange].sell;
+        var sellData6 = file6[i].data[exchange].sell;
+
+        tmp2.push(i);
+        tmp2.push(sellData1);
+        tmp2.push(sellData2);
+        tmp2.push(sellData3);
+        tmp2.push(sellData4);
+        tmp2.push(sellData5);
+        tmp2.push(sellData6);
+
+        array2.push(tmp2);
+
+         } catch (err) {
+          console.log(err);
+        }
+    }
+
+    google.charts.load("current", {packages: ["corechart", "line"]});
+
+    google.charts.setOnLoadCallback(drawTrendlines);
+  }
+
+
+   
+
+    function drawTrendlines() {
+
+          var data = new google.visualization.DataTable();
+          var data2 = new google.visualization.DataTable();
+
+          data.addColumn("number", "X"); 
+
+          data.addColumn("number", a); 
+          data.addColumn("number", b); 
+          data.addColumn("number", c);          
+          data.addColumn("number", d); 
+          data.addColumn("number", e); 
+          data.addColumn("number", f); 
+
+
+          data2.addColumn("number", "X"); 
+
+          data2.addColumn("number", a); 
+          data2.addColumn("number", b); 
+          data2.addColumn("number", c);          
+          data2.addColumn("number", d); 
+          data2.addColumn("number", e); 
+          data2.addColumn("number", f); 
+
+          data.addRows(array);
+          data2.addRows(array2);
+
+          var options = {
+            hAxis: {
+              title: "BUY"
+            },
+            height: 1000,
+            //curveType: "function",
+            vAxis: {
+              title: ""
+            },
+            colors: ["#f07f13", "#800909", "#f27d0c", "#757676", "#fdcf58"],
+            // trendlines: {
+            //   //0: {type: "exponential", color: "#333", opacity: 0.2},
+            //   //0: {type: "linear", color: "#111", opacity: 0.2},
+            //   //0: {type: "polynomial", degree: 3, color: "#111", opacity: 0.2}
+            // },
+            annotations:{
+                alwaysOutside: false,
+                stem: {
+                    length: -200,
+                }
+            },
+            explorer: { 
+                    actions: ["dragToZoom", "rightClickToReset"],
+                    axis: "horizontal",
+                    keepInBounds: true,
+                    maxZoomIn: 4.0
+            }
+
+          };
+          var options2 = {
+            hAxis: {
+              title: "SELL"
+            },
+            height: 1000,
+            //curveType: "function",
+            vAxis: {
+              title: ""
+            },
+            colors: ["#f07f13", "#800909", "#f27d0c", "#757676", "#fdcf58"],
+            // trendlines: {
+            //   //0: {type: "exponential", color: "#333", opacity: 0.2},
+            //   //0: {type: "linear", color: "#111", opacity: 0.2},
+            //   //0: {type: "polynomial", degree: 3, color: "#111", opacity: 0.2}
+            // },
+            annotations:{
+                alwaysOutside: false,
+                stem: {
+                    length: -200,
+                }
+            },
+            explorer: { 
+                    actions: ["dragToZoom", "rightClickToReset"],
+                    axis: "horizontal",
+                    keepInBounds: true,
+                    maxZoomIn: 4.0
+            }
+
+          };
+          var chart = new google.visualization.LineChart(document.getElementById("chart_div"));
+          chart.draw(data, options);
+
+          var chart2 = new google.visualization.LineChart(document.getElementById("chart_div2"));
+          chart2.draw(data2, options2);
+        }
+
+function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
+
+});
+  </script>
+</body>
+</html>

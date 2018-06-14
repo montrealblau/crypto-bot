@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ARBITRAGE</title>
+      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+      
+      <script type="text/javascript" src="scripts/jquery.js"></script>
+      <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+      <meta content="utf-8" http-equiv="encoding">
+</head>
+<body>
+
+<div id="chart_div"></div>
+<script>
+$(document).ready(function(){
+
+var ex = getUrlParameter('exchange');
+var url = getUrlParameter('url');
+var n = getUrlParameter('n');
+
+console.log('-',ex);
+console.log('-',url);
+console.log('-',n);
+
+
+var a;
+var b;
+
+var file = "./historical/"+url+".json";
+
+$.when(
+    $.getJSON(file, function(data) {
+        a = data;
+        console.log(a);
+    }),
+    $.getJSON("deals.json", function(data) {
+        b = data;
+    })
+).then(function() {
+    init(a, b);
+});
+
+var array = [];
+
+function init(json,deals){
+  console.log('-->',deals);
+    console.log('-->',json);
+
+    var adjuster = json[10].data[ex].buy*0.95;
+
+    for (var i = 0; i < json.length; i++) {
+        var tmp = [];
+
+        var time = json[i].time;
+
+        var gate = (json[i].data.gate.buy+json[i].data.gate.sell)/2;
+
+        var bina = (json[i].data.binance.buy+json[i].data.binance.sell)/2;
+
+        var gdax = (json[i].data.gdax.buy+json[i].data.gdax.sell)/2;            
+                
+        var krak = (json[i].data.kraken.buy+json[i].data.kraken.sell)/2;
+
+
+        // PLOT >>//
+        var exchange = (json[i].data[ex].buy+json[i].data[ex].sell)/2;
+
+        var avg = (bina+gdax+krak+gate-exchange)/3;
+
+        var a2bi = json[i].data[ex].arbitrage2binance;
+        var a2kr = json[i].data[ex].arbitrage2kraken;
+        var a2gd = json[i].data[ex].arbitrage2gdax;
+        var a2ga = json[i].data[ex].arbitrage2gate;
+
+        var arbitrage2binance =  a2bi * adjuster + n*50;
+        var arbitrage2kraken =   a2kr * adjuster + n*100;
+        var arbitrage2gdax =     a2gd * adjuster + n*150;
+        var arbitrage2gate =     a2ga * adjuster + n*200;
+
+        var avgarbitrage = null;
+        var counter = 0;
+
+        if (a2bi > 0) {
+          counter++;
+          avgarbitrage = avgarbitrage + a2bi/3;
+        }
+        if (a2kr > 0) {
+          counter++;
+          avgarbitrage = avgarbitrage + a2kr/3;
+        }
+        if (a2gd > 0) {
+          counter++;
+          avgarbitrage = avgarbitrage + a2gd/3;
+        }
+        if (a2ga > 0) {
+          counter++;
+          avgarbitrage = avgarbitrage + a2ga/3;
+        }
+        if (counter === 3) {
+          avgarbitrage = avgarbitrage * adjuster;
+        } else {
+          avgarbitrage = null;
+        }
+
+        if (arbitrage2binance < 800 || arbitrage2kraken < 800 || arbitrage2gdax < 800 || arbitrage2gate < 800 ) {
+            
+            arbitrage2binance = null;
+            arbitrage2kraken = null;
+            arbitrage2gdax = null;
+            arbitrage2gate = null;
+        }
+        var profit = profit+i;
+        var anotation = null;
+        var anotationid = null;
+        
+
+        if (deals.hasOwnProperty(time)){
+            var object = deals[time];
+          if (object.buy === true) {
+              anotation = "+";
+          }else if(object.sell === true){
+              anotation = "-";
+          }
+          anotationid = object.id+"-"+object.before;
+        }
+
+        tmp.push(time);
+        tmp.push(avg);
+        tmp.push(gate);
+        tmp.push(anotation);
+        tmp.push(anotationid);
+        tmp.push(profit);
+        tmp.push(arbitrage2binance);
+        tmp.push(arbitrage2kraken);
+        tmp.push(arbitrage2gdax);
+        tmp.push(arbitrage2gate);
+        tmp.push(avgarbitrage);
+
+
+        
+        
+        
+        //tmp.push(bina);
+        //tmp.push(gdax);
+        //tmp.push(gate);
+        //tmp.push(krak);
+        array.push(tmp);
+    }
+
+    google.charts.load("current", {packages: ["corechart", "line"]});
+
+    google.charts.setOnLoadCallback(drawTrendlines);
+  }
+
+
+   
+
+    function drawTrendlines() {
+
+          var data = new google.visualization.DataTable();
+          data.addColumn("number", "X");          
+          data.addColumn("number", "avg");
+          data.addColumn("number", "gate");
+          data.addColumn({type:"string", role:"annotation"});
+          data.addColumn({type: 'string', role: 'annotationText', p: {html: true}});
+          data.addColumn("number", "profit");
+          data.addColumn("number", "arbitrage2binance");
+          data.addColumn("number", "arbitrage2kraken");
+          data.addColumn("number", "arbitrage2gdax");
+          data.addColumn("number", "arbitrage2gate");
+          data.addColumn("number", "avgarbitrage");
+          
+          
+          
+
+
+          //data.addColumn("number", "binance");
+          //data.addColumn("number", "gdax");
+          //data.addColumn("number", "gate");
+          //data.addColumn("number", "kraken");
+
+          data.addRows(array);
+
+          var options = {
+            hAxis: {
+              title: ""
+            },
+            height: 2000,
+            //curveType: "function",
+            vAxis: {
+              title: ""
+            },
+            colors: ["#f07f13", "#800909", "#f27d0c", "#757676", "#fdcf58"],
+            // trendlines: {
+            //   //0: {type: "exponential", color: "#333", opacity: 0.2},
+            //   //0: {type: "linear", color: "#111", opacity: 0.2},
+            //   //0: {type: "polynomial", degree: 3, color: "#111", opacity: 0.2}
+            // },
+            annotations:{
+                alwaysOutside: false,
+                stem: {
+                    length: -200,
+                }
+            },
+            explorer: { 
+                    actions: ["dragToZoom", "rightClickToReset"],
+                    axis: "horizontal",
+                    keepInBounds: true,
+                    maxZoomIn: 4.0
+            }
+
+          };
+          var chart = new google.visualization.LineChart(document.getElementById("chart_div"));
+          chart.draw(data, options);
+        }
+
+function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
+
+});
+  </script>
+</body>
+</html>

@@ -1,0 +1,272 @@
+{
+	"1519656858740": {
+		"buy": true,
+		"sell": false,
+		"price": 10128.00007668878,
+		"quantity": null,
+		"profit": null,
+		"id": 1519656858740,
+		"before": null
+	},
+	"1519659460001": {
+		"buy": false,
+		"sell": true,
+		"price": 10182.22671060007,
+		"quantity": null,
+		"profit": 54.226633911290264,
+		"id": 1519656858740,
+		"before": false
+	},
+	"1519659499542": {
+		"buy": true,
+		"sell": false,
+		"price": 10200.000000000015,
+		"quantity": null,
+		"profit": null,
+		"id": 1519659499542,
+		"before": null
+	},
+	"1519661667444": {
+		"buy": false,
+		"sell": true,
+		"price": 10345.48999999889,
+		"quantity": null,
+		"profit": 145.47423600000002,
+		"id": 1519659499542,
+		"before": true
+	},
+	"1519672843581": {
+		"buy": true,
+		"sell": false,
+		"price": 10209.597301358293,
+		"quantity": null,
+		"profit": null,
+		"id": 1519672843581,
+		"before": null
+	},
+	"1519675541248": {
+		"buy": false,
+		"sell": true,
+		"price": 10217.949999980547,
+		"quantity": null,
+		"profit": 8.352698622253229,
+		"id": 1519672843581,
+		"before": false
+	},
+	"1519677786829": {
+		"buy": true,
+		"sell": false,
+		"price": 10200.000000000015,
+		"quantity": null,
+		"profit": null,
+		"id": 1519677786829,
+		"before": null
+	},
+	"1519680506440": {
+		"buy": false,
+		"sell": true,
+		"price": 10313.149234523426,
+		"quantity": null,
+		"profit": 113.149234523411,
+		"id": 1519677786829,
+		"before": false
+	},
+	"1519680694822": {
+		"buy": true,
+		"sell": false,
+		"price": 10340.000000002417,
+		"quantity": null,
+		"profit": null,
+		"id": 1519680694822,
+		"before": null
+	},
+	"1519683366125": {
+		"buy": false,
+		"sell": true,
+		"price": 10272.419999999745,
+		"quantity": null,
+		"profit": -67.58000000267202,
+		"id": 1519680694822,
+		"before": false
+	},
+	"1519683851752": {
+		"buy": true,
+		"sell": false,
+		"price": 10339.99999999767,
+		"quantity": null,
+		"profit": null,
+		"id": 1519683851752,
+		"before": null
+	},
+	"1519686470614": {
+		"buy": false,
+		"sell": true,
+		"price": 10337.129999999761,
+		"quantity": null,
+		"profit": -2.8699999979089625,
+		"id": 1519683851752,
+		"before": false
+	},
+	"1519689310052": {
+		"buy": true,
+		"sell": false,
+		"price": 10265.45676073485,
+		"quantity": null,
+		"profit": null,
+		"id": 1519689310052,
+		"before": null
+	},
+	"1519691892136": {
+		"buy": false,
+		"sell": true,
+		"price": 10277.388528187375,
+		"quantity": null,
+		"profit": 11.931767452524582,
+		"id": 1519689310052,
+		"before": false
+	},
+	"1519691969255": {
+		"buy": true,
+		"sell": false,
+		"price": 10338.010000000537,
+		"quantity": null,
+		"profit": null,
+		"id": 1519691969255,
+		"before": null
+	},
+	"1519694540443": {
+		"buy": false,
+		"sell": true,
+		"price": 10271.000000000296,
+		"quantity": null,
+		"profit": -67.01000000024032,
+		"id": 1519691969255,
+		"before": false
+	},
+	"1519694717396": {
+		"buy": true,
+		"sell": false,
+		"price": 10292.759999999967,
+		"quantity": null,
+		"profit": null,
+		"id": 1519694717396,
+		"before": null
+	},
+	"1519697331680": {
+		"buy": false,
+		"sell": true,
+		"price": 10168.592870487108,
+		"quantity": null,
+		"profit": -124.1671295128599,
+		"id": 1519694717396,
+		"before": false
+	},
+	"1519698513291": {
+		"buy": true,
+		"sell": false,
+		"price": 10140.00000000165,
+		"quantity": null,
+		"profit": null,
+		"id": 1519698513291,
+		"before": null
+	},
+	"1519701115071": {
+		"buy": false,
+		"sell": true,
+		"price": 10162.009999989825,
+		"quantity": null,
+		"profit": 22.009999988174968,
+		"id": 1519698513291,
+		"before": false
+	},
+	"1519701585509": {
+		"buy": true,
+		"sell": false,
+		"price": 10179.999999999976,
+		"quantity": null,
+		"profit": null,
+		"id": 1519701585509,
+		"before": null
+	},
+	"1519704179715": {
+		"buy": false,
+		"sell": true,
+		"price": 10230.662887705053,
+		"quantity": null,
+		"profit": 50.66288770507708,
+		"id": 1519701585509,
+		"before": false
+	},
+	"1519705099497": {
+		"buy": true,
+		"sell": false,
+		"price": 10295.552113865806,
+		"quantity": null,
+		"profit": null,
+		"id": 1519705099497,
+		"before": null
+	},
+	"1519707699514": {
+		"buy": false,
+		"sell": true,
+		"price": 10286.380000000207,
+		"quantity": null,
+		"profit": -9.172113865599385,
+		"id": 1519705099497,
+		"before": false
+	},
+	"1519711808057": {
+		"buy": true,
+		"sell": false,
+		"price": 10319.725323008786,
+		"quantity": null,
+		"profit": null,
+		"id": 1519711808057,
+		"before": null
+	},
+	"1519714378078": {
+		"buy": false,
+		"sell": true,
+		"price": 10277.925193696108,
+		"quantity": null,
+		"profit": -41.80012931267811,
+		"id": 1519711808057,
+		"before": false
+	},
+	"1519717729396": {
+		"buy": true,
+		"sell": false,
+		"price": 10368.839375798107,
+		"quantity": null,
+		"profit": null,
+		"id": 1519717729396,
+		"before": null
+	},
+	"1519718118516": {
+		"buy": false,
+		"sell": true,
+		"price": 10526.31999999996,
+		"quantity": null,
+		"profit": 147.88225356871953,
+		"id": 1519717729396,
+		"before": true
+	},
+	"1519718155442": {
+		"buy": true,
+		"sell": false,
+		"price": 10546.429999997174,
+		"quantity": null,
+		"profit": null,
+		"id": 1519718155442,
+		"before": null
+	},
+	"1519720747691": {
+		"buy": false,
+		"sell": true,
+		"price": 10679.909999999676,
+		"quantity": null,
+		"profit": 133.4800000025025,
+		"id": 1519718155442,
+		"before": false
+	}
+}
